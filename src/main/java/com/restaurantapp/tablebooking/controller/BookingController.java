@@ -25,18 +25,17 @@ public class BookingController extends BaseController {
     public BookingController(BookingRepository bookingRepository) {
         this.bookingRepository = bookingRepository;
     }
-/*
+
     @GetMapping
     public ResponseEntity<?> getBookings() {
         try {
-            List<Booking> bookings = bookingRepository.getAll();
+            List<Booking> bookings = bookingRepository.findAll();
             return getResponse(SUCCESS, bookings, HttpStatus.OK);
         } catch (Exception e) {
             throw new ApiRequestException("Unable to fetch booking by date", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
- */
 
     @GetMapping(value = "/date/{date}")
     @CrossOrigin

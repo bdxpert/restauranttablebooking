@@ -13,6 +13,7 @@ import java.util.List;
 import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/customers")
 public class CustomerController extends BaseController {
     private CustomerRepository customerRepository;

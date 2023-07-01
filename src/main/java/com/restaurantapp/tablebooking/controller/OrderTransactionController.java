@@ -5,16 +5,13 @@ import com.restaurantapp.tablebooking.exception.ApiRequestException;
 import com.restaurantapp.tablebooking.repository.OrderTransactionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/transactions")
 public class OrderTransactionController extends BaseController {
@@ -24,7 +21,15 @@ public class OrderTransactionController extends BaseController {
     public OrderTransactionController(OrderTransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
-
+    @GetMapping
+    public ResponseEntity<?> getOrders() {
+        try {
+            List<OrderTransaction> orderTransactions = transactionRepository.findAll();
+            return getResponse(SUCCESS, orderTransactions, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ApiRequestException("Unable to fetch transaction", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping(value = "/date/{date}")
     public ResponseEntity<?> getAllTransactionsForDate(@PathVariable String date) {
         try {
@@ -53,6 +58,7 @@ public class OrderTransactionController extends BaseController {
             throw new ApiRequestException("Unable to fetch transaction by customer id", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     /*
     @GetMapping(value="/customer-name/{customerName}")
     public List<OrderTransaction> getTransactionsByCustomerName(@PathVariable String customerName){

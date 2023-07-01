@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
-
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/restaurant-tables", name = "RestaurantTableController")
 public class TableController extends BaseController {
