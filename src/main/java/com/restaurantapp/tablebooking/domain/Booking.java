@@ -23,7 +23,7 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate bdate;
-    private LocalTime btime;
+    private LocalTime startTime;
     private int personCount;
     private String notes;
 
@@ -44,9 +44,9 @@ public class Booking {
     @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY)
     private List<OrderTransaction> orderTransactions;
 
-    public Booking(Customer customer, LocalDate bookingDate, LocalTime bookingTime, int numberInParty, String notes, List<RestaurantTable> restaurantTables) {
+    public Booking(Customer customer, LocalDate bookingDate, LocalTime startTime, int numberInParty, String notes, List<RestaurantTable> restaurantTables) {
         this.bdate = bookingDate;
-        this.btime = bookingTime;
+        this.startTime = startTime;
         this.personCount = numberInParty;
         this.notes = notes;
         this.customer = customer;

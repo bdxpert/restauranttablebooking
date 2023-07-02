@@ -94,15 +94,15 @@ public class DataLoader implements ApplicationRunner {
         Customer customer5 = new Customer("San5", "6413837829", "san5@xyz.com");
         customerRepository.save(customer5);
         // 3 bookings:
-        Booking booking1 = new Booking(customer1, LocalDate.parse("2019-06-10"), LocalTime.parse("17:00"), 20, "Dating dinner", myTables);
+        Booking booking1 = new Booking(customer1, LocalDate.parse("2019-06-10"), LocalTime.parse("17:00"),  20, "Dating dinner", myTables);
         bookingRepository.save(booking1);
         Booking booking2 = new Booking(customer2, LocalDate.parse("2019-06-07"), LocalTime.parse("17:00"), 3, "", myTables);
         bookingRepository.save(booking2);
-        Booking booking3 = new Booking(customer3, LocalDate.parse("2019-06-06"), LocalTime.parse("19:00"), 1, "Sky view seat if possible", myTables2);
+        Booking booking3 = new Booking(customer3, LocalDate.parse("2019-06-06"), LocalTime.parse("19:00"),  1, "Sky view seat if possible", myTables2);
         bookingRepository.save(booking3);
         Booking booking4 = new Booking(customer3, LocalDate.parse("2019-06-06"), LocalTime.parse("19:00"), 2, "Not facing the toilet", myTables3);
         bookingRepository.save(booking4);
-        Booking booking5 = new Booking(customer4, LocalDate.parse("2019-06-06"), LocalTime.parse("19:00"), 11, "Birthday's party", myTables4);
+        Booking booking5 = new Booking(customer4, LocalDate.parse("2019-06-06"), LocalTime.parse("19:00"),  11, "Birthday's party", myTables4);
         bookingRepository.save(booking5);
 
         // Order transactions:

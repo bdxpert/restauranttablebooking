@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
-@CrossOrigin
+
 @RestController
 @RequestMapping(value = "/restaurant-tables", name = "RestaurantTableController")
 public class TableController extends BaseController {
@@ -22,7 +22,6 @@ public class TableController extends BaseController {
     }
 
     @GetMapping
-    @CrossOrigin
     public ResponseEntity<?> getAllRestaurantTables() {
         try {
             return getResponse(SUCCESS, restaurantTableRepository.findAll(), HttpStatus.OK);
@@ -32,7 +31,6 @@ public class TableController extends BaseController {
     }
 
     @GetMapping(value = "/seat/{number}")
-    @CrossOrigin
     public ResponseEntity<?> getTablesBySeating(@PathVariable int number) {
         try {
             return getResponse(SUCCESS, restaurantTableRepository.findRestaurantTablesBySeat(number), HttpStatus.OK);
@@ -42,7 +40,6 @@ public class TableController extends BaseController {
     }
 
     @GetMapping(value = "/available-on-date/{date}")
-    @CrossOrigin
     public ResponseEntity<?> getTablesAvailableOnDate(@PathVariable String date) {
         try {
             return getResponse(SUCCESS, restaurantTableService.getTablesAvailableOnDate(date), HttpStatus.OK);

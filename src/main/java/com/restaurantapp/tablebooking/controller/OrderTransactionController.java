@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/transactions")
 public class OrderTransactionController extends BaseController {

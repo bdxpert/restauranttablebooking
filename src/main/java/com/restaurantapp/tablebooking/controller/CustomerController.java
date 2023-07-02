@@ -13,7 +13,6 @@ import java.util.List;
 import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/customers")
 public class CustomerController extends BaseController {
     private CustomerRepository customerRepository;
@@ -55,22 +54,17 @@ public class CustomerController extends BaseController {
         try {
             //TODO create customer
             return getResponse(SUCCESS, customerRepository.save(customer), HttpStatus.OK);
-        } catch (DataAccessResourceFailureException e) {
-            throw new ApiRequestException(e.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
         } catch (Exception e) {
-            throw new ApiRequestException(e.getMessage(), HttpStatus.BAD_GATEWAY);
+            throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping
     public ResponseEntity<?> updateCustomer(@RequestBody Customer customer) {
         try {
-            //TODO create customer
             return getResponse(SUCCESS, customerRepository.save(customer), HttpStatus.OK);
-        } catch (DataAccessResourceFailureException e) {
-            throw new ApiRequestException(e.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
-        } catch (Exception e) {
-            throw new ApiRequestException(e.getMessage(), HttpStatus.BAD_GATEWAY);
+        }  catch (Exception e) {
+            throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

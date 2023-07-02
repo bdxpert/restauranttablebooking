@@ -2,7 +2,6 @@ package com.restaurantapp.tablebooking.repository;
 
 import com.restaurantapp.tablebooking.domain.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -15,10 +14,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findAllBookingsByBdate(LocalDate date);
 
-    List<Booking> getBookingByBdateAndBtimeAndCustomerId(LocalDate date, LocalTime time, Long customerId);
+    List<Booking> getBookingByBdateAndStartTimeAndCustomerId(LocalDate date, LocalTime time, Long customerId);
 
     List<Booking> getBookingsByCustomerId(Long customerId);
     List<Booking> findAll();
-
-
 }

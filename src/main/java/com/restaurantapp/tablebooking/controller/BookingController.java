@@ -2,6 +2,7 @@ package com.restaurantapp.tablebooking.controller;
 
 import com.restaurantapp.tablebooking.domain.Booking;
 import com.restaurantapp.tablebooking.repository.BookingRepository;
+import com.restaurantapp.tablebooking.service.BookingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,9 @@ import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
 public class BookingController extends BaseController {
 
     private BookingRepository bookingRepository;
-
-    public BookingController(BookingRepository bookingRepository) {
+    private BookingService bookingService;
+    public BookingController(BookingRepository bookingRepository, BookingService bookingService) {
+        this.bookingService = bookingService;
         this.bookingRepository = bookingRepository;
     }
 
@@ -38,7 +40,6 @@ public class BookingController extends BaseController {
 
 
     @GetMapping(value = "/date/{date}")
-    @CrossOrigin
     public ResponseEntity<?> getAllBookingsForDate(@PathVariable String date) {
         try {
             LocalDate getDate = LocalDate.parse(date);
@@ -54,7 +55,7 @@ public class BookingController extends BaseController {
         try {
             LocalDate getDate = LocalDate.parse(date);
             LocalTime getTime = LocalTime.parse(time);
-            List<Booking> bookings = bookingRepository.getBookingByBdateAndBtimeAndCustomerId(getDate, getTime, customerId);
+            List<Booking> bookings = bookingRepository.getBookingByBdateAndStartTimeAndCustomerId(getDate, getTime, customerId);
 
             return getResponse(SUCCESS, bookings, HttpStatus.OK);
         } catch (Exception e) {
@@ -79,25 +80,19 @@ public class BookingController extends BaseController {
             bookingRepository.deleteById(bookingId);
         } catch (NullPointerException e) {
             throw new ApiRequestException("Booking with id " + bookingId + " not found!", HttpStatus.NOT_FOUND);
-        } catch (DataAccessResourceFailureException e) {
-            throw new ApiRequestException(e.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
-        } catch (Exception e) {
-            throw new ApiRequestException(e.getMessage(), HttpStatus.BAD_GATEWAY);
+        }  catch (Exception e) {
+            throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return getResponse(SUCCESS, "Booking deleted Successfully", HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<?> createBooking(@RequestBody Booking booking) {
-        //TODO create booking
         try {
-            return getResponse(SUCCESS, bookingRepository.save(booking), HttpStatus.OK);
-        } catch (DataAccessResourceFailureException e) {
-            throw new ApiRequestException(e.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
-        } catch (Exception e) {
-            throw new ApiRequestException(e.getMessage(), HttpStatus.BAD_GATEWAY);
+            Booking createdBooking = bookingService.create(booking);
+            return getResponse(SUCCESS, createdBooking, HttpStatus.OK);
+        }  catch (Exception e) {
+            throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }

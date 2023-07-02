@@ -18,7 +18,9 @@ public class TableBookingApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:4200");
+						.allowedOrigins("*");
+						//.allowedOrigins("sanjiv.com.s3.us-east-1.amazonaws.com")
+						//.allowedOrigins("http://localhost:4200");
 			}
 		};
 	}
