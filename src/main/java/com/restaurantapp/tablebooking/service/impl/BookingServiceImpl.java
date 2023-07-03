@@ -9,6 +9,7 @@ import com.restaurantapp.tablebooking.service.RestaurantTableService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,11 +25,11 @@ public class BookingServiceImpl implements BookingService {
         this.restaurantTableService = restaurantTableService;
         this.bookingRepository = bookingRepository;
     }
-
+    @Transactional(readOnly = true)
     public Booking getById(Long bookingId) throws DataAccessResourceFailureException {
         return bookingRepository.getById(bookingId);
     }
-
+    @Transactional
     public boolean deleteById(Long bookingId) throws DataAccessResourceFailureException {
         try {
             bookingRepository.deleteById(bookingId);
@@ -38,17 +39,17 @@ public class BookingServiceImpl implements BookingService {
         }
         return Boolean.FALSE;
     }
-
+    @Transactional(readOnly = true)
     public List<Booking> getBookingsByCustomerId(Long customerId) throws DataAccessResourceFailureException {
         List<Booking> bookings = bookingRepository.getBookingsByCustomerId(customerId);
         return bookings;
     }
-
+    @Transactional(readOnly = true)
     public List<Booking> getBookingByBdateAndStartTimeAndCustomerId(LocalDate date, LocalTime time, Long customerId) throws DataAccessResourceFailureException {
         List<Booking> bookings = bookingRepository.getBookingByBdateAndStartTimeAndCustomerId(date, time, customerId);
         return bookings;
     }
-
+    @Transactional(readOnly = true)
     public List<Booking> findAllBookingsByBdate(LocalDate date)  throws DataAccessResourceFailureException {
         return bookingRepository.findAllBookingsByBdate(date);
     }
@@ -56,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
     {
         return bookingRepository.findAll();
     }
-
+    @Transactional
     public Booking create(Booking booking) throws DataAccessResourceFailureException {
         //check booking already exists on given date
         List<Booking> bookingList = bookingRepository.findAllBookingsByBdate(booking.getBdate());
@@ -76,6 +77,7 @@ public class BookingServiceImpl implements BookingService {
         throw new DataAccessResourceFailureException("Table already booked");
     }
 
+    @Transactional
     public Booking update(Booking booking) throws DataAccessResourceFailureException {
         //check booking already exists on given date
         List<Booking> bookingList = bookingRepository.findAllBookingsByBdate(booking.getBdate());
