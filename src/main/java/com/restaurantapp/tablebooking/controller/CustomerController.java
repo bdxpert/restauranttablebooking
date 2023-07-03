@@ -3,6 +3,7 @@ package com.restaurantapp.tablebooking.controller;
 import com.restaurantapp.tablebooking.domain.Customer;
 import com.restaurantapp.tablebooking.exception.ApiRequestException;
 import com.restaurantapp.tablebooking.repository.CustomerRepository;
+import com.restaurantapp.tablebooking.service.CustomerService;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +16,16 @@ import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
 @RestController
 @RequestMapping("/customers")
 public class CustomerController extends BaseController {
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
 
-    public CustomerController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping
     public ResponseEntity<?> getAllCustomer() {
         try {
-            return getResponse(SUCCESS, customerRepository.findAll(), HttpStatus.OK);
+            return getResponse(SUCCESS, customerService.findAll(), HttpStatus.OK);
         } catch (Exception e) {
             throw new ApiRequestException("Unable to fetch all customer", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -43,7 +44,7 @@ public class CustomerController extends BaseController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<?>  getCustomerById(@PathVariable Long id) {
         try {
-            return getResponse(SUCCESS, customerRepository.findCustomerById(id), HttpStatus.OK);
+            return getResponse(SUCCESS, customerService.findCustomerById(id), HttpStatus.OK);
         } catch (Exception e) {
             throw new ApiRequestException("Unable to fetch customer", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -53,7 +54,7 @@ public class CustomerController extends BaseController {
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
         try {
             //TODO create customer
-            return getResponse(SUCCESS, customerRepository.save(customer), HttpStatus.OK);
+            return getResponse(SUCCESS, customerService.create(customer), HttpStatus.OK);
         } catch (Exception e) {
             throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -62,7 +63,7 @@ public class CustomerController extends BaseController {
     @PutMapping
     public ResponseEntity<?> updateCustomer(@RequestBody Customer customer) {
         try {
-            return getResponse(SUCCESS, customerRepository.save(customer), HttpStatus.OK);
+            return getResponse(SUCCESS, customerService.update(customer), HttpStatus.OK);
         }  catch (Exception e) {
             throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

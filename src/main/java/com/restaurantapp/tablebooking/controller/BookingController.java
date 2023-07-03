@@ -1,13 +1,11 @@
 package com.restaurantapp.tablebooking.controller;
 
 import com.restaurantapp.tablebooking.domain.Booking;
-import com.restaurantapp.tablebooking.repository.BookingRepository;
 import com.restaurantapp.tablebooking.service.BookingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import com.restaurantapp.tablebooking.exception.*;
 
@@ -15,26 +13,25 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static com.restaurantapp.tablebooking.utils.AppConstant.ERROR;
 import static com.restaurantapp.tablebooking.utils.AppConstant.SUCCESS;
 
 @RestController
 @RequestMapping("/bookings")
 public class BookingController extends BaseController {
 
-    private BookingRepository bookingRepository;
     private BookingService bookingService;
-    public BookingController(BookingRepository bookingRepository, BookingService bookingService) {
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
-        this.bookingRepository = bookingRepository;
     }
 
     @GetMapping
     public ResponseEntity<?> getBookings() {
         try {
-            List<Booking> bookings = bookingRepository.findAll();
+            List<Booking> bookings = bookingService.findAll();
             return getResponse(SUCCESS, bookings, HttpStatus.OK);
         } catch (Exception e) {
-            throw new ApiRequestException("Unable to fetch booking by date", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ApiRequestException("Unable to fetch all booking", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -42,8 +39,8 @@ public class BookingController extends BaseController {
     @GetMapping(value = "/date/{date}")
     public ResponseEntity<?> getAllBookingsForDate(@PathVariable String date) {
         try {
-            LocalDate getDate = LocalDate.parse(date);
-            List<Booking> bookings = bookingRepository.findAllBookingsByBdate(getDate);
+            LocalDate parsedDate = LocalDate.parse(date);
+            List<Booking> bookings = bookingService.findAllBookingsByBdate(parsedDate);
             return getResponse(SUCCESS, bookings, HttpStatus.OK);
         } catch (Exception e) {
             throw new ApiRequestException("Unable to fetch booking by date", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -53,9 +50,9 @@ public class BookingController extends BaseController {
     @GetMapping(value = "/date/{date}/time/{time}/customer/{customerId}")
     public ResponseEntity<?> getBookingByDateTimeAndCustomerId(@PathVariable String date, @PathVariable String time, @PathVariable Long customerId) {
         try {
-            LocalDate getDate = LocalDate.parse(date);
-            LocalTime getTime = LocalTime.parse(time);
-            List<Booking> bookings = bookingRepository.getBookingByBdateAndStartTimeAndCustomerId(getDate, getTime, customerId);
+            LocalDate parsedDate = LocalDate.parse(date);
+            LocalTime parsedTime = LocalTime.parse(time);
+            List<Booking> bookings = bookingService.getBookingByBdateAndStartTimeAndCustomerId(parsedDate, parsedTime, customerId);
 
             return getResponse(SUCCESS, bookings, HttpStatus.OK);
         } catch (Exception e) {
@@ -66,7 +63,7 @@ public class BookingController extends BaseController {
     @GetMapping(value = "/customer/{customerId}")
     public ResponseEntity<?> getBookingsByCustomerId(@PathVariable Long customerId) {
         try {
-            List<Booking> bookings = bookingRepository.getBookingsByCustomerId(customerId);
+            List<Booking> bookings = bookingService.getBookingsByCustomerId(customerId);
 
             return getResponse(SUCCESS, bookings, HttpStatus.OK);
         } catch (Exception e) {
@@ -77,13 +74,13 @@ public class BookingController extends BaseController {
     @DeleteMapping(value = "/{bookingId}")
     public ResponseEntity<?> deleteBookingById(@PathVariable Long bookingId) {
         try {
-            bookingRepository.deleteById(bookingId);
+            bookingService.deleteById(bookingId);
+            return getResponse(SUCCESS, "Booking deleted Successfully", HttpStatus.OK);
         } catch (NullPointerException e) {
             throw new ApiRequestException("Booking with id " + bookingId + " not found!", HttpStatus.NOT_FOUND);
         }  catch (Exception e) {
             throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return getResponse(SUCCESS, "Booking deleted Successfully", HttpStatus.OK);
     }
 
     @PostMapping
@@ -91,6 +88,19 @@ public class BookingController extends BaseController {
         try {
             Booking createdBooking = bookingService.create(booking);
             return getResponse(SUCCESS, createdBooking, HttpStatus.OK);
+        }  catch (Exception e) {
+            throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PutMapping(value = "/{bookingId}")
+    public ResponseEntity<?> updateBooking(@RequestBody Booking booking, @PathVariable Long bookingId) {
+        try {
+            Booking existingBooking = bookingService.getById(bookingId);
+            if(existingBooking != null) {
+                Booking updatedBooking = bookingService.update(booking);
+                return getResponse(SUCCESS, updatedBooking, HttpStatus.OK);
+            } else
+                return getResponse(ERROR, new Object(), HttpStatus.NOT_FOUND);
         }  catch (Exception e) {
             throw new ApiRequestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
