@@ -58,10 +58,13 @@ public class OrderTransactionController extends BaseController {
             throw new ApiRequestException("Unable to fetch transaction by customer id", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping
+    public ResponseEntity<?> createTransactions(@RequestBody OrderTransaction orderTransaction) {
+        try {
+            return getResponse(SUCCESS, transactionService.create(orderTransaction), HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ApiRequestException("Unable to fetch transaction by customer id", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-    /*
-    @GetMapping(value="/customer-name/{customerName}")
-    public List<OrderTransaction> getTransactionsByCustomerName(@PathVariable String customerName){
-        return transactionRepository.getTransactionsByCustomerName(customerName);
-    }*/
 }

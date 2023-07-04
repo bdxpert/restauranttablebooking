@@ -25,7 +25,7 @@ public class OrderTransaction {
 
     private double balance = 0.0;
 
-
+    private String notes;
     @JsonIgnoreProperties("booking")
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = true)
@@ -36,10 +36,11 @@ public class OrderTransaction {
     @JoinColumn(name = "booking_id", nullable = true)
     private Booking booking;
 
-    public OrderTransaction(LocalDate date, double dueAmount, double paidAmount, Customer customer, Booking booking){
+    public OrderTransaction(LocalDate date, double dueAmount, double paidAmount, String notes, Customer customer, Booking booking){
         this.date = date;
         this.paidAmount = paidAmount;
         this.dueAmount = dueAmount;
+        this.notes = notes;
         this.customer = customer;
         this.booking = booking;
         setBalance(calculateBalance());

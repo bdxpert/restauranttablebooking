@@ -102,15 +102,15 @@ public class DataLoader implements ApplicationRunner {
         bookingRepository.save(booking3);
         Booking booking4 = new Booking(customer3, LocalDate.parse("2019-06-06"), LocalTime.parse("19:00"), 2, "Not facing the toilet", myTables3);
         bookingRepository.save(booking4);
-        Booking booking5 = new Booking(customer4, LocalDate.parse("2019-06-06"), LocalTime.parse("19:00"),  11, "Birthday's party", myTables4);
+        Booking booking5 = new Booking(customer4, LocalDate.parse("2023-07-04"), LocalTime.parse("19:00"),  11, "Birthday's party", myTables4);
         bookingRepository.save(booking5);
 
         // Order transactions:
         //// LocalDate date, int dueAmount, int paidAmount, Customer customer, Booking booking)
-        OrderTransaction transaction1 = new OrderTransaction(LocalDate.parse("2019-06-10"), 30, 30, customer1, booking1);
-        OrderTransaction transaction2 = new OrderTransaction(LocalDate.parse("2019-06-01"), 150, 50, customer2, booking2);
-        OrderTransaction transaction3 = new OrderTransaction(LocalDate.parse("2019-06-01"), 25, 25, customer3, booking3);
-        OrderTransaction transaction4 = new OrderTransaction(LocalDate.parse("2019-06-05"), 40, 40, customer3, booking4);
+        OrderTransaction transaction1 = new OrderTransaction(LocalDate.parse("2019-06-10"), 30, 30, "Paid", customer1, booking1);
+        OrderTransaction transaction2 = new OrderTransaction(LocalDate.parse("2019-06-01"), 150, 50, "Not Paid", customer2, booking2);
+        OrderTransaction transaction3 = new OrderTransaction(LocalDate.parse("2019-06-01"), 25, 25, "Paid", customer3, booking3);
+        OrderTransaction transaction4 = new OrderTransaction(LocalDate.parse("2023-07-04"), 40, 40, "Paid",customer3, booking4);
 
         transactionRepository.save(transaction1);
         transactionRepository.save(transaction2);

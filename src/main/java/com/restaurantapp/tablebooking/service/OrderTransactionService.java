@@ -10,4 +10,5 @@ public interface OrderTransactionService {
     List<OrderTransaction> findAllTransactionsByDate(LocalDate localDate);
     List<OrderTransaction> getTransactionsByBookingId(Long bookingId);
     List<OrderTransaction> getTransactionsByCustomerId(Long customerId);
+    OrderTransaction create(OrderTransaction orderTransaction);
 }

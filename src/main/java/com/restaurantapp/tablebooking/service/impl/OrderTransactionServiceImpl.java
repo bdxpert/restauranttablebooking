@@ -40,4 +40,10 @@ public class OrderTransactionServiceImpl implements OrderTransactionService {
     public List<OrderTransaction> getTransactionsByCustomerId(Long customerId) {
         return transactionRepository.getTransactionsByCustomerId(customerId);
     }
+
+    public OrderTransaction create(OrderTransaction orderTransaction) {
+        transactionRepository.save(orderTransaction);
+        return orderTransaction;
+    }
+
 }
