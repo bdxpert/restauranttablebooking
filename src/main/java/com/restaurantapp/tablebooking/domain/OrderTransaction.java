@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "transactions")
 public class OrderTransaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +47,7 @@ public class OrderTransaction {
         setBalance(calculateBalance());
     }
     public double calculateBalance(){
-        double balance = dueAmount - paidAmount;
+        double balance = paidAmount - dueAmount;
         return balance;
     }
 }

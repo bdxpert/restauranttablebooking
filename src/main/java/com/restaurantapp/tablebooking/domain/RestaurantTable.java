@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "tables")
 public class RestaurantTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +27,7 @@ public class RestaurantTable {
     @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(
-            name = "restaurant_tables_bookings",
+            name = "tables_bookings",
             joinColumns = {@JoinColumn(name = "table_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name="booking_id", nullable = false, updatable = false)}
     )
@@ -37,10 +38,4 @@ public class RestaurantTable {
         this.bookings = new ArrayList<>();
 
     }
-    public boolean isAvailableOnDate(String dateString){
-        for (Booking booking : bookings)
-            if (LocalDate.parse(dateString).equals(booking.getBdate())) return false;
-        return true;
-    }
-
 }
