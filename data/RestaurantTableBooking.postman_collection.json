@@ -14,12 +14,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/customers/2",
+							"raw": "http://localhost:5000/api/customers/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
 								"api",
 								"customers",
@@ -35,12 +35,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/customers/name/tom",
+							"raw": "http://localhost:5000/api/customers/name/tom",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
 								"api",
 								"customers",
@@ -66,12 +66,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/customers",
+							"raw": "http://localhost:5000/api/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
 								"api",
 								"customers"
@@ -95,12 +95,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/customers",
+							"raw": "http://localhost:5000/api/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
 								"api",
 								"customers"
@@ -162,14 +162,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/bookings/customer/1",
+							"raw": "http://localhost:5000/bookings/customer/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
-								"api",
 								"bookings",
 								"customer",
 								"1"
@@ -184,14 +183,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/bookings/date/2019-06-10/time/17:00:00/customer/1",
+							"raw": "http://localhost:5000/bookings/date/2019-06-10/time/17:00:00/customer/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
-								"api",
 								"bookings",
 								"date",
 								"2019-06-10",
@@ -239,14 +237,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/bookings",
+							"raw": "http://localhost:5000/bookings",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
-								"api",
 								"bookings"
 							]
 						}
@@ -264,14 +261,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/transactions/date/2019-06-10",
+							"raw": "http://localhost:5000/transactions/date/2019-06-10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
-								"api",
 								"transactions",
 								"date",
 								"2019-06-10"
@@ -286,14 +282,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/transactions/booking/01",
+							"raw": "http://localhost:5000/transactions/booking/01",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
-								"api",
 								"transactions",
 								"booking",
 								"01"
@@ -308,12 +303,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/transactions/customer/01",
+							"raw": "http://localhost:5000/api/transactions/customer/01",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
 								"api",
 								"transactions",
@@ -330,12 +325,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/transactions/customer-name/pim",
+							"raw": "http://localhost:5000/api/transactions/customer-name/pim",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
 								"api",
 								"transactions",
@@ -350,7 +345,19 @@
 					"name": "list",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
 					},
 					"response": []
 				}
@@ -365,14 +372,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/restaurant-tables/seat/10",
+							"raw": "http://localhost:5000/restaurant-tables/seat/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
-								"api",
 								"restaurant-tables",
 								"seat",
 								"10"
@@ -387,14 +393,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/restaurant-tables/available-on-date/2019-06-10",
+							"raw": "http://localhost:5000/restaurant-tables/available-on-date/2019-06-10",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "5000",
 							"path": [
-								"api",
 								"restaurant-tables",
 								"available-on-date",
 								"2019-06-10"
