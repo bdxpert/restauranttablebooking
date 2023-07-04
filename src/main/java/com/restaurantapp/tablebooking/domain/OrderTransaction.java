@@ -22,7 +22,7 @@ public class OrderTransaction {
     private LocalDate date;
 
     private double paidAmount;
-    private double dueAmount;
+    private double outstandingBalance;
 
     private double balance = 0.0;
 
@@ -37,17 +37,17 @@ public class OrderTransaction {
     @JoinColumn(name = "booking_id", nullable = true)
     private Booking booking;
 
-    public OrderTransaction(LocalDate date, double dueAmount, double paidAmount, String notes, Customer customer, Booking booking){
+    public OrderTransaction(LocalDate date, double outstandingBalance, double paidAmount, String notes, Customer customer, Booking booking){
         this.date = date;
         this.paidAmount = paidAmount;
-        this.dueAmount = dueAmount;
+        this.outstandingBalance = outstandingBalance;
         this.notes = notes;
         this.customer = customer;
         this.booking = booking;
         setBalance(calculateBalance());
     }
     public double calculateBalance(){
-        double balance = paidAmount - dueAmount;
+        double balance = outstandingBalance - paidAmount;
         return balance;
     }
 }

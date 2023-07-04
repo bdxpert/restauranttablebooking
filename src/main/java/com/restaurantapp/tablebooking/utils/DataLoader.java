@@ -107,9 +107,9 @@ public class DataLoader implements ApplicationRunner {
 
         // Order transactions:
         //// LocalDate date, int dueAmount, int paidAmount, Customer customer, Booking booking)
-        OrderTransaction transaction1 = new OrderTransaction(LocalDate.parse("2019-06-10"), 30, 30, "Paid", customer1, booking1);
-        OrderTransaction transaction2 = new OrderTransaction(LocalDate.parse("2019-06-01"), 50, 150, "Not Paid", customer2, booking2);
-        OrderTransaction transaction3 = new OrderTransaction(LocalDate.parse("2019-06-01"), 25, 25, "Paid", customer3, booking3);
+        OrderTransaction transaction1 = new OrderTransaction(LocalDate.parse("2020-06-10"), 30, 30, "Paid", customer1, booking1);
+        OrderTransaction transaction2 = new OrderTransaction(LocalDate.parse("2020-06-01"), 150, 100, "Not Paid", customer2, booking2);
+        OrderTransaction transaction3 = new OrderTransaction(LocalDate.parse("2020-06-01"), 25, 25, "Paid", customer3, booking3);
         OrderTransaction transaction4 = new OrderTransaction(LocalDate.parse("2023-07-04"), 40, 40, "Paid",customer3, booking4);
 
         transactionRepository.save(transaction1);
